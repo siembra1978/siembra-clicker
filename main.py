@@ -12,9 +12,9 @@ class clickerUI:
         self.clicking = False
         
         self.master = master
-        self.master.geometry("320x212")
+        self.master.geometry("384x128")
         
-        master.title("siembra's PyClicker")
+        master.title("siembra's autoclicker")
         master.configure(bg="gray9")
         
         self.master.grid_rowconfigure(0, weight=1)
@@ -26,8 +26,10 @@ class clickerUI:
         self.initClick()
         self.listener = keyboard.Listener(on_press=self.onKeyPress)
         self.listener.start()
+        print("Listening...")
         
     def generateUI(self):
+        print("Building UI")
         self.window = Frame(self.master, bg="gray9")
         self.window.grid(row=0,column=0)
         
@@ -36,9 +38,6 @@ class clickerUI:
         
         self.cpsEntry = Entry(self.window, bg="gray9", fg="white")
         self.cpsEntry.grid(row=0,column=1)
-        
-        #self.startBtn = Button(self.window, text="Start Clicking", bg="gray9", fg="white", command=self.initClick)
-        #self.startBtn.grid(row=2,column=1)
         
     def onKeyPress(self, key):
         try:
@@ -50,11 +49,13 @@ class clickerUI:
             pass
         
     def initClick(self):
+        print("Initiating click thread loop")
         clickThread = threading.Thread(target=self.autoClick)
         clickThread.daemon = True
         clickThread.start()
         
     def resumeClick(self):
+        print("Resume clicking")
         try:
             self.cps = int(self.cpsEntry.get())
         except ValueError:
@@ -62,9 +63,11 @@ class clickerUI:
         self.clicking = True
         
     def haltClick(self):
+        print("Stop clicking")
         self.clicking = False
     
     def onClose(self):
+        print("Bye bye")
         self.listener.stop()
         self.master.destroy()
 
