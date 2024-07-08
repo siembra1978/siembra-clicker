@@ -3,6 +3,7 @@ from pynput import keyboard
 from tkinter import *
 import time
 import threading
+from playsound import playsound
     
 class clickerUI:
     
@@ -38,7 +39,9 @@ class clickerUI:
         
         self.cpsEntry = Entry(self.window, bg="gray9", fg="white")
         self.cpsEntry.grid(row=0,column=1)
-        
+
+        self.yipeeButton = Button(self.window, bg="gray9", fg="white", text="yipee!!!", command=self.yipee)
+        self.yipeeButton.grid(row=1,column=1)
     def onKeyPress(self, key):
         try:
             if key.char == 'h':
@@ -47,7 +50,10 @@ class clickerUI:
                 self.haltClick()
         except AttributeError:
             pass
-        
+
+    def yipee(self):
+        threading.Thread(target=playsound, args=('C:/Users/chedd/Desktop/GitProjects/siembra-clicker/yip.mp3',)).start()
+        #playsound('C:/Users/chedd/Desktop/GitProjects/siembra-clicker/yip.mp3')
     def initClick(self):
         print("Initiating click thread loop")
         clickThread = threading.Thread(target=self.autoClick)
@@ -78,6 +84,7 @@ class clickerUI:
         while self.running:
             while self.clicking:
                 mouse.click(msButton.left, 1)
+                threading.Thread(target=playsound, args=('C:/Users/chedd/Desktop/GitProjects/siembra-clicker/yip.mp3',)).start()
                 time.sleep(1/self.cps)
         time.sleep(.1)
 
