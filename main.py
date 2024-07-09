@@ -39,6 +39,7 @@ class clickerUI:
         
         self.cpsEntry = Entry(self.window, bg="gray9", fg="white")
         self.cpsEntry.grid(row=0,column=1)
+        self.cpsEntry.insert(0, str(self.cps))
 
         self.yipeeButton = Button(self.window, bg="gray9", fg="white", text="yipee!!!", command=self.yipee)
         self.yipeeButton.grid(row=1,column=1)
@@ -75,6 +76,7 @@ class clickerUI:
     def onClose(self):
         print("Bye bye")
         self.listener.stop()
+        self.running = False
         self.master.destroy()
 
     def autoClick(self):
@@ -84,7 +86,7 @@ class clickerUI:
         while self.running:
             while self.clicking:
                 mouse.click(msButton.left, 1)
-                threading.Thread(target=playsound, args=('C:/Users/chedd/Desktop/GitProjects/siembra-clicker/yip.mp3',)).start()
+                #threading.Thread(target=playsound, args=('C:/Users/chedd/Desktop/GitProjects/siembra-clicker/yip.mp3',)).start()
                 time.sleep(1/self.cps)
         time.sleep(.1)
 
