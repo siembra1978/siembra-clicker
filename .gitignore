@@ -1,0 +1,4 @@
+*.bat
+venv/
+venv310/
+.idea/
