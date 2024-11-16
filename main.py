@@ -4,8 +4,9 @@ from pynput.mouse import Button as msButton, Controller
 from pynput import keyboard
 from tkinter import *
 import time
+import random
 import threading
-from playsound import playsound
+#from playsound import playsound
     
 class clickerUI:
     
@@ -45,11 +46,12 @@ class clickerUI:
 
         self.yipeeButton = Button(self.window, bg="gray9", fg="white", text="yipee!!!", command=self.yipee)
         self.yipeeButton.grid(row=1,column=1)
+
     def onKeyPress(self, key):
         try:
-            if key.char == 'h':
+            if key.char == 'g' and not self.clicking:
                 self.resumeClick()
-            elif key.char == 'g':
+            elif key.char == 'g' and self.clicking:
                 self.haltClick()
         except AttributeError:
             pass
@@ -89,7 +91,7 @@ class clickerUI:
             while self.clicking:
                 mouse.click(msButton.left, 1)
                 #threading.Thread(target=playsound, args=('C:/Users/chedd/Desktop/GitProjects/siembra-clicker/yip.mp3',)).start()
-                time.sleep(1/self.cps)
+                time.sleep((1/self.cps)*random.random())
         time.sleep(.1)
 
 if __name__ == "__main__":    
